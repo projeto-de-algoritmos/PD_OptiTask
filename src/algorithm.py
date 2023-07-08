@@ -3,11 +3,21 @@
 
 # Classe para representar uma tarefa
 class Tarefa:
-    def __init__(self, nome, inicio, fim, lucro):
+    def __init__(self,ident, nome, inicio, fim, lucro):
+        self.ident = ident
         self.nome = nome
         self.inicio = inicio
         self.fim = fim
         self.lucro = lucro
+
+    def to_dict(self):
+        return {
+            'ident': self.ident,
+            'nome': self.nome,
+            'inicio': self.inicio,
+            'fim': self.fim,
+            'lucro': self.lucro
+        }
 
 
 # Função de busca binária baseada em busca binária para encontrar a última tarefa
@@ -81,12 +91,13 @@ def escalonamento(tarefas):
 # Código de teste para a função acima
 #tarefas = [Tarefa("Tarefa 1", 1, 2, 50), Tarefa("Tarefa 2", 3, 5, 20),
 #           Tarefa("Tarefa 3", 6, 19, 100), Tarefa("Tarefa 4", 2, 100, 200)]
-tarefas=[Tarefa("Tarefa 1", 1688698800000, 1688785200000, 50), Tarefa("Tarefa 2",  1688871600000, 1689217200000, 20),
-         Tarefa("Tarefa 3", 1689303600000 , 1689908400000, 100), Tarefa("Tarefa 4",1688785200000 , 1691204400000, 200)]
 
-lucro_otimo, tarefas_realizadas = escalonamento(tarefas)
+#tarefas=[Tarefa("Tarefa 1", 1688698800000, 1688785200000, 50), Tarefa("Tarefa 2",  1688871600000, 1689217200000, 20),
+#         Tarefa("Tarefa 3", 1689303600000 , 1689908400000, 100), Tarefa("Tarefa 4",1688785200000 , 1691204400000, 200)]
 
-print("Lucro ótimo é:", lucro_otimo)
-print("Tarefas a serem realizadas:")
-for tarefa in tarefas_realizadas:
-    print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
+#lucro_otimo, tarefas_realizadas = escalonamento(tarefas)
+
+#print("Lucro ótimo é:", lucro_otimo)
+#print("Tarefas a serem realizadas:")
+#for tarefa in tarefas_realizadas:
+#    print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
