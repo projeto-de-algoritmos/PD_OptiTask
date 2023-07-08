@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify
-from algorithm import  *
+from algorithm import  Tarefa, find_lucro_maximo_jobs
 
 tarefas=[] 
 
@@ -22,7 +22,7 @@ def process_data():
     data2 = data.get('valorInput3')
     texto2 = data.get('valorInput4')
 
-    tarefas.append(Tarefa(cont,texto1, convert_data_ms(data1), convert_data_ms(data2), texto2)) # Adiciona a tarefa na lista de tarefas
+    tarefas.append(Tarefa(cont,texto1, convert_data_ms(data1), convert_data_ms(data2), int(texto2))) # Adiciona a tarefa na lista de tarefas
 
     #tarefas.append(Tarefa(cont,texto1, data1, data2, texto2)) # Adiciona a tarefa na lista de tarefas
     
@@ -37,18 +37,19 @@ def process_data():
 
 @app.route('/calc', methods=['GET'])
 def obter_tarefas():
-    lucro_otimo, tarefas_realizadas = escalonamento(tarefas)
-
-    print("Lucro ótimo é:", lucro_otimo)
+    tarefas_realizadas = find_lucro_maximo_jobs(tarefas)
+    lucro_total = 0
+    # print("Lucro ótimo é:", lucro_otimo)
     print("Tarefas a serem realizadas:")
     for tarefa in tarefas_realizadas:
-       print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
-    
+        lucro_total += tarefa.lucro
+        print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
+    print(f'Lucro total é {lucro_total} !')
     # Converter a lista de tarefas em uma lista de dicionários
     tarefas_serializaveis = [tarefa.to_dict() for tarefa in tarefas_realizadas]
 
     # Retornar a lista de tarefas em formato JSON
-    return jsonify(tarefas=tarefas_serializaveis, lucro_otimo=lucro_otimo)
+    return jsonify(tarefas=tarefas_serializaveis)
 
 
 '''
