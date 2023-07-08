@@ -1,90 +1,69 @@
 # Programa em Python para escalonamento de tarefas ponderado usando
-# Programação Dinâmica e Busca Binária
-
 # Classe para representar uma tarefa
 class Tarefa:
-    def __init__(self, nome, inicio, fim, lucro):
+    def __init__(self,ident,nome,inicio, fim, lucro):
+        self.ident = ident
         self.nome = nome
         self.inicio = inicio
         self.fim = fim
         self.lucro = lucro
 
-
-# Função de busca binária baseada em busca binária para encontrar a última tarefa
-# (antes da tarefa atual) que não conflita com a tarefa atual.
-# "index" é o índice da tarefa atual. Esta função
-# retorna -1 se todas as tarefas antes do índice conflitarem com ela.
-# O array tarefas[] é ordenado em ordem crescente de tempo de término.
-def buscaBinaria(tarefa, indice_inicial):
-
-    # Inicializa 'lo' e 'hi' para a busca binária
-    lo = 0
-    hi = indice_inicial - 1
-
-    # Realiza a busca binária iterativamente
-    while lo <= hi:
-        meio = (lo + hi) // 2
-        if tarefa[meio].fim <= tarefa[indice_inicial].inicio:
-            if tarefa[meio + 1].fim <= tarefa[indice_inicial].inicio:
-                lo = meio + 1
-            else:
-                return meio
-        else:
-            hi = meio - 1
-    return -1
+    def to_dict(self):
+        return {
+            'ident': self.ident,
+            'nome': self.nome,
+            'inicio': self.inicio,
+            'fim': self.fim,
+            'lucro': self.lucro
+        }
 
 
-# A função principal que retorna o lucro máximo possível
-# a partir de um array de tarefas dado
-def escalonamento(tarefas):
+def find_lucro_maximo_jobs(tarefas):
+    if not tarefas:
+        return []
 
-    # Ordena as tarefas de acordo com o tempo de término
-    tarefas = sorted(tarefas, key=lambda t: t.fim)
-
-    # Cria um array para armazenar as soluções dos subproblemas. table[i]
-    # armazena o lucro para as tarefas até tarefas[i] (incluindo tarefas[i])
+    tarefas.sort(key=lambda x: x.inicio)
     n = len(tarefas)
-    tabela = [0 for _ in range(n)]
+    trabalhos = [[] for _ in range(n)]
+    lucro_maximo = [0] * n
 
-    tabela[0] = tarefas[0].lucro
+    for i in range(n):
+        for j in range(i):
+            if tarefas[j].fim <= tarefas[i].inicio and lucro_maximo[i] < lucro_maximo[j]:
+                trabalhos[i] = trabalhos[j][:]
+                lucro_maximo[i] = lucro_maximo[j]
 
-    # Preenche as entradas na tabela[] usando a propriedade recursiva
+        trabalhos[i].append(i)
+        lucro_maximo[i] += int(tarefas[i].lucro)
+
+    index = 0
     for i in range(1, n):
+        if lucro_maximo[i] > lucro_maximo[index]:
+            index = i
 
-        # Encontra o lucro incluindo a tarefa atual
-        lucro_incl = tarefas[i].lucro
-        l = buscaBinaria(tarefas, i)
-        if l != -1:
-            lucro_incl += tabela[l]
+    result = []
+    for i in trabalhos[index]:
+        result.append(tarefas[i])
 
-        # Armazena o máximo entre a inclusão e a exclusão
-        tabela[i] = max(lucro_incl, tabela[i - 1])
-
-    # Encontra as tarefas que devem ser realizadas
-    tarefas_realizadas = []
-    indice = n - 1
-    while indice >= 0:
-        if indice == 0:
-            tarefas_realizadas.append(tarefas[indice])
-            break
-        elif tabela[indice] != tabela[indice - 1]:
-            tarefas_realizadas.append(tarefas[indice])
-            indice = buscaBinaria(tarefas, indice)
-        else:
-            indice -= 1
-
-    tarefas_realizadas.reverse()
-
-    return tabela[n - 1], tarefas_realizadas
+    return result
 
 
-# Código de teste para a função acima
-tarefas = [Tarefa("Tarefa 1", 1, 2, 50), Tarefa("Tarefa 2", 3, 5, 20),
-           Tarefa("Tarefa 3", 6, 19, 100), Tarefa("Tarefa 4", 2, 100, 200)]
 
-lucro_otimo, tarefas_realizadas = escalonamento(tarefas)
+# if __name__ == '__main__':   
+#     tarefas = [
+#         Tarefa(1,'Job1',0, 6, 60),
+#         Tarefa(2,'Job2',5, 9, 50),
+#         Tarefa(3,'Job3',1, 4, 30),
+#         Tarefa(4,'Job4',5, 7, 30),
+#         Tarefa(5,'Job5',3, 5, 10),
+#         Tarefa(6,'Job6',7, 8, 10)
+#     ]
 
-print("Lucro ótimo é:", lucro_otimo)
-print("Tarefas a serem realizadas:")
-for tarefa in tarefas_realizadas:
-    print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
+#     lucro_maximo_jobs = find_lucro_maximo_jobs(tarefas)
+#     lucro_total = 0
+    
+# for tarefa in lucro_maximo_jobs:
+#     lucro_total  += tarefa.lucro
+#     print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
+
+   
