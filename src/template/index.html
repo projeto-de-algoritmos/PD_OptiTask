@@ -6,6 +6,22 @@
     <title>QualTarefa</title>
 </head>
 <body>
+    <h1>Lista de Tarefas</h1>
+
+    <header>
+      <input id="inputTarefa" type="text" placeholder="Tarefa">
+      <input id="inputTarefa2" type="text" placeholder="Data de início" onfocus="(this.type='date')">
+      <input id="inputTarefa3" type="text" placeholder="Data de fim" onfocus="(this.type='date')">
+      <input id="inputTarefa4" type="text" placeholder="Preço">
+      
+      <button onclick="addTarefa()" id="btn-add" class="add">Adicionar Tarefa</button>
+    </header>
     
+    <main id="areaLista">
+
+    </main>
+    <script src="../static/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </body>
 </html>
