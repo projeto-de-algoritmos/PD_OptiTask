@@ -79,8 +79,10 @@ def escalonamento(tarefas):
 
 
 # Código de teste para a função acima
-tarefas = [Tarefa("Tarefa 1", 1, 2, 50), Tarefa("Tarefa 2", 3, 5, 20),
-           Tarefa("Tarefa 3", 6, 19, 100), Tarefa("Tarefa 4", 2, 100, 200)]
+#tarefas = [Tarefa("Tarefa 1", 1, 2, 50), Tarefa("Tarefa 2", 3, 5, 20),
+#           Tarefa("Tarefa 3", 6, 19, 100), Tarefa("Tarefa 4", 2, 100, 200)]
+tarefas=[Tarefa("Tarefa 1", 1688698800000, 1688785200000, 50), Tarefa("Tarefa 2",  1688871600000, 1689217200000, 20),
+         Tarefa("Tarefa 3", 1689303600000 , 1689908400000, 100), Tarefa("Tarefa 4",1688785200000 , 1691204400000, 200)]
 
 lucro_otimo, tarefas_realizadas = escalonamento(tarefas)
 
