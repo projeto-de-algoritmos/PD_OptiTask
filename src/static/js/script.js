@@ -7,20 +7,23 @@ let btnAdd = document.getElementById("btn-add");
 let main = document.getElementById("areaLista");
 
 
-function dataParaMs() { // fazer no backend ? a ver...
 
-    //var dataInicioInput = dataInicio;
-    //var dataFimInput = dataFim;
 
-    //var diferencaMilissegundos = moment(dataFimInput.value).diff(moment(dataInicioInput.value), 'milliseconds');
-
-    //console.log(moment(dataInicioInput.value).valueOf());
-    //console.log(moment(dataFimInput.value).valueOf());
-
-    //console.log("Diferença em milissegundos: " + diferencaMilissegundos);
+function verificarLucroMax() {
+    document.getElementById("submit-button").addEventListener("click", function () {
+        fetch('/calc')
+            .then(response => response.json())
+            .then(tarefas => {
+                // Exibir o resultado no console
+                console.log(tarefas);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
 }
-
-
+// Adicionar o evento de clique ao botão assim que a página for carregada
+document.addEventListener('DOMContentLoaded', verificarLucroMax);
 
 function addTarefa() {
     //PEGAR O VALOR DIGITADO NO descTarefa
@@ -29,14 +32,9 @@ function addTarefa() {
     let valorInput3 = dataFim.value;
     let valorInput4 = preco.value;
 
- 
-
-
-
-
 
     // verificar se o valor é válido em algum dos casos
-    if (valorInput !== "" || valorInput2 !== "" || valorInput3 !== "" || valorInput4 !== "") {
+    if (valorInput != "" || valorInput2 != "" || valorInput3 != "" || valorInput4 != "") {
         ++contador;
         let novoItem = `<div id="${contador}" class="item">
     
@@ -61,11 +59,12 @@ function addTarefa() {
         dataInicio.value = "";
         dataFim.value = "";
         preco.value = "";
-        
 
-     
+
+
 
         const dados = {
+            contador: contador,
             valorInput: valorInput,
             valorInput2: valorInput2,
             valorInput3: valorInput3,
@@ -77,7 +76,6 @@ function addTarefa() {
 
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            //body: JSON.stringify({valorInput : valorInput})  // converter o objeto "dados" em uma string JSON que será enviada no corpo da requisição.
             body: JSON.stringify(dados)  // converter o objeto "dados" em uma string JSON que será enviada no corpo da requisição.
         })
             .then(response => response.json()) // Obtém a resposta como objeto JSON
@@ -92,33 +90,25 @@ function addTarefa() {
     }
 }
 
+/*
 function deletar(id) {
-    var tarefa = document.getElementById(id);
-    tarefa.remove();
+            var tarefa = document.getElementById(id);
+            tarefa.remove();
 
-    /*
-    fetch("/delete", {
-        method: "DELETE"
-    })
-        .then(response => {
-            // Verifique se a exclusão foi bem-sucedida no back-end
-            if (response.ok) {
-                // A exclusão foi bem-sucedida, execute a lógica adicional no front-end
-                console.log("Lista excluída com sucesso!");
-                // Execute outras ações necessárias no front-end, como atualizar a interface do usuário, redirecionar para outra página, etc.
-            } else {
-                // A exclusão falhou no back-end, manipule o erro adequadamente
-                console.log("Falha ao excluir a lista");
-            }
-        })
-        .catch(error => {
-            // Manipule erros de rede ou outros erros ao enviar a solicitação DELETE
-            console.error("Erro ao enviar solicitação DELETE:", error);
-        });
-    */
+            document.getElementById("deletar").addEventListener("click", function () {
+                fetch('/delete/${id}')
+                    .then(response => response.json())
+                    .then(tarefas => {
+                        // Exibir o resultado no console
+                        console.log(tarefas);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
 
-}
-
+        }
+*/
 function marcarTarefa(id) {
     var item = document.getElementById(id);
     var classe = item.getAttribute("class");
