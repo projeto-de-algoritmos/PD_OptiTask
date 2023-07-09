@@ -1,6 +1,6 @@
 
 
-# QualTarefa
+# OptiTask
 
 **Número da Lista**: 12<br>
 **Conteúdo da Disciplina**: PD <br>
@@ -13,7 +13,7 @@
 
 
 ## Sobre 
-QualTarefa é um projeo que tem por finalidade auxiliar o usuário a decidir quais tarefas deve realizar, baseado no lucro recebido por cada tarefa e sua data de realização. O usuário pode adicionar tarefas, definindo seu lucro e data de realização, e o sistema irá retornar a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível.
+OptiTask é um projeto que tem por finalidade auxiliar o usuário a decidir quais tarefas deve realizar, baseado no lucro recebido por cada tarefa e sua data de realização. O usuário pode adicionar tarefas, definindo seu lucro e data de realização, e o sistema irá retornar a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível.
 
 ## Screenshots
 
