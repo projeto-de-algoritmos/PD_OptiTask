@@ -15,23 +15,16 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def process_data():
-    data = request.json  # Obtendo os dados JSON do corpo da requisição
-    cont= data.get('contador')
-    texto1 = data.get('valorInput')
-    data1 = data.get('valorInput2')
-    data2 = data.get('valorInput3')
-    texto2 = data.get('valorInput4')
+    data = request.json  
+    identificador= data.get('contador')
+    nome = data.get('valorInput')
+    dataInicio = data.get('valorInput2')
+    dataFim = data.get('valorInput3')
+    preco = data.get('valorInput4')
 
-    tarefas.append(Tarefa(cont,texto1, convert_data_ms(data1), convert_data_ms(data2), int(texto2))) # Adiciona a tarefa na lista de tarefas
-
-    #tarefas.append(Tarefa(cont,texto1, data1, data2, texto2)) # Adiciona a tarefa na lista de tarefas
-    
+    tarefas.append(Tarefa(identificador,nome, convert_data_ms(dataInicio), convert_data_ms(dataFim), int(preco))) 
    
-    for t in tarefas:  # teste
-        print('Nome da tarefa ' ,t.ident, t.nome, t.inicio, t.fim, t.lucro) # Imprime a lista de tarefas
-
-    return jsonify({'valorInput': texto1, 'valorInput2': data1, 'valorInput3': data2, 'valorInput4': texto2})
-
+    return jsonify({'valorInput': nome, 'valorInput2': dataInicio, 'valorInput3': dataFim, 'valorInput4': preco})
 
 
 
@@ -39,45 +32,51 @@ def process_data():
 def obter_tarefas():
     tarefas_realizadas = find_lucro_maximo_jobs(tarefas)
     lucro_total = 0
-    # print("Lucro ótimo é:", lucro_otimo)
-    print("Tarefas a serem realizadas:")
+  # Construir uma lista de dicionários com os detalhes das tarefas
+    tarefas_serializaveis = []
     for tarefa in tarefas_realizadas:
         lucro_total += tarefa.lucro
-        print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
-    print(f'Lucro total é {lucro_total} !')
-    # Converter a lista de tarefas em uma lista de dicionários
-    tarefas_serializaveis = [tarefa.to_dict() for tarefa in tarefas_realizadas]
+        tarefas_serializaveis.append({
+            "nome": tarefa.nome,
+            "inicio": convert_ms_data(tarefa.inicio),
+            "fim": convert_ms_data(tarefa.fim),
+            "lucro": tarefa.lucro
+        })
 
-    # Retornar a lista de tarefas em formato JSON
-    return jsonify(tarefas=tarefas_serializaveis)
+    # Adicionar o lucro total ao dicionário
+    resultado = {
+        "tarefas": tarefas_serializaveis,
+        "lucro_total": lucro_total
+    }
+
+    # Converter o dicionário em formato JSON
+    resultado_json = jsonify(resultado)
+
+    # Retornar o JSON
+    return resultado_json
 
 
-'''
-@app.route('/delete/<int:id>', methods=['GET'])
-def deleter_tarefa(id):
+@app.route('/delete/<int:id>', methods=['DELETE'])
+def deletar_tarefa(id):
     for tarefa in tarefas:
-        if tarefa.ident == id:
+        if tarefa.identificador == id:
             tarefas.remove(tarefa)
             return jsonify({'message': 'Item removido com sucesso'})
     return jsonify({'message': 'Item não encontrado'})
 
-    print("Tarefas:")
-    for i in tarefas:
-       print("Nome:", i.nome, "Início:", i.inicio, "Fim:", i.fim, "Lucro:", i.lucro)
-    # Retornar a lista de tarefas em formato JSON
-    #return jsonify(tarefas=tarefas_serializaveis, lucro_otimo=lucro_otimo)
-
-
-'''
-
 
 def convert_data_ms(dataInput):
-     # Formata a data do formulário em um objeto datetime
-    data_f = datetime.strptime(dataInput, "%Y-%m-%d")
-    dataMili = int (datetime.timestamp(data_f) * 1000)  # Converte a data para milissegundos
-    print( dataMili)
+    dataFormatada = datetime.strptime(dataInput, "%Y-%m-%d")
+    dataMili = int (datetime.timestamp(dataFormatada) * 1000)  
     return dataMili
 
+
+
+def convert_ms_data(dataInput):
+    data = datetime.fromtimestamp(dataInput / 1000.0)
+    formato_data = "%d/%m/%Y"  
+    data_formatada = data.strftime(formato_data)
+    return data_formatada
 
 if __name__ == '__main__':
     app.run(debug=True)
