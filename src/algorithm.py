@@ -1,8 +1,8 @@
 # Programa em Python para escalonamento de tarefas ponderado usando
 # Classe para representar uma tarefa
 class Tarefa:
-    def __init__(self,ident,nome,inicio, fim, lucro):
-        self.ident = ident
+    def __init__(self,identificador,nome,inicio, fim, lucro):
+        self.identificador = identificador
         self.nome = nome
         self.inicio = inicio
         self.fim = fim
@@ -10,7 +10,7 @@ class Tarefa:
 
     def to_dict(self):
         return {
-            'ident': self.ident,
+            'identificador': self.identificador,
             'nome': self.nome,
             'inicio': self.inicio,
             'fim': self.fim,
