@@ -1,4 +1,5 @@
-# Programa em Python para escalonamento de tarefas ponderado usando
+# Algoritmo que utiliza o Weighted Interval Scheduling para encontrar o lucro máximo de um conjunto de tarefas
+# Os pesos do algoritmo são os lucros das tarefas no nosso caso
 # Classe para representar uma tarefa
 class Tarefa:
     def __init__(self,identificador,nome,inicio, fim, lucro):

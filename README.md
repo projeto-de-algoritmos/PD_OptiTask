@@ -13,12 +13,16 @@
 
 
 ## Sobre 
-OptiTask é um projeto que tem por finalidade auxiliar o usuário a decidir quais tarefas deve realizar, baseado no lucro recebido por cada tarefa e sua data de realização. O usuário pode adicionar tarefas, definindo seu lucro e data de realização, e o sistema irá retornar a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível.
+OptiTask é um projeto que tem por finalidade auxiliar o usuário a decidir quais tarefas deve realizar, baseado no lucro recebido por cada tarefa e sua data de realização. O usuário pode adicionar tarefas, definindo seu lucro e data de realização, e o sistema irá retornar a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível. É importante salientar que implementamos o algoritmo de Weighted Interval Scheduling com o intuito de maximizar o lucro em nosso projeto, assim o lucro é o equivalente ao peso do algoritmo original.
+
+
 
 ## Screenshots
 
 
 ## Video de Apresentação
+[Assistir no Youtube](https://youtu.be/zKRxg0NQ0Lk)
+> Disponível na raiz do repositório.
 
 ## Instalação 
 **Linguagem**: Python & Javascript< br>
