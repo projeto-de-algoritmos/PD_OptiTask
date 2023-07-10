@@ -18,7 +18,7 @@ OptiTask é um projeto que tem por finalidade auxiliar o usuário a decidir quai
 
 
 ## Screenshots
-
+![](./assets/screenshot.png)
 
 ## Video de Apresentação
 [Assistir no Youtube](https://youtu.be/zKRxg0NQ0Lk)
@@ -45,7 +45,7 @@ python3 app.py
 
 ## Uso
 
-Acesse a porta 5000 a partir do link [http://127.0.0.1:5000/](http://127.0.0.1:5000/), Adicione as tarefas que deseja realizar, definindo seu lucro e data de realização, e clique em "Calcular" para obter a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível.
+Acesse a porta 5000 a partir do link [http://127.0.0.1:5000/](http://127.0.0.1:5000/), Adicione as tarefas que deseja realizar, definindo seu lucro e data de realização, e clique em "Verificar Lucro Máximo" para obter a melhor combinação de tarefas que o usuário deve realizar para obter o maior lucro possível.
 
 
 
