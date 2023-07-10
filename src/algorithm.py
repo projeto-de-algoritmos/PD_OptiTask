@@ -47,23 +47,4 @@ def find_lucro_maximo_jobs(tarefas):
 
     return result
 
-
-
-# if __name__ == '__main__':   
-#     tarefas = [
-#         Tarefa(1,'Job1',0, 6, 60),
-#         Tarefa(2,'Job2',5, 9, 50),
-#         Tarefa(3,'Job3',1, 4, 30),
-#         Tarefa(4,'Job4',5, 7, 30),
-#         Tarefa(5,'Job5',3, 5, 10),
-#         Tarefa(6,'Job6',7, 8, 10)
-#     ]
-
-#     lucro_maximo_jobs = find_lucro_maximo_jobs(tarefas)
-#     lucro_total = 0
-    
-# for tarefa in lucro_maximo_jobs:
-#     lucro_total  += tarefa.lucro
-#     print("Nome:", tarefa.nome, "Início:", tarefa.inicio, "Fim:", tarefa.fim, "Lucro:", tarefa.lucro)
-
    
